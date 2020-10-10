@@ -11,8 +11,10 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 Vue.use(BootstrapVue);
 
-import { IconsPlugin } from "bootstrap-vue";
+import { IconsPlugin, ButtonPlugin, CardPlugin } from "bootstrap-vue";
 Vue.use(IconsPlugin);
+Vue.use(ButtonPlugin);
+Vue.use(CardPlugin);
 
 new Vue({
   router,
