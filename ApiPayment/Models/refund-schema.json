@@ -1,0 +1,10 @@
+{
+    "payload": {
+        "type": "object",
+        "properties": {
+            "order_id": { "type": "number" }
+        }
+    },
+    "required": ["order_id"],
+    "additionalProperties": false
+}

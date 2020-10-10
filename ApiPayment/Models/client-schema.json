@@ -1,0 +1,24 @@
+{
+    "payload": {
+        "type": "object",
+        "properties": {
+            "name": { "type": "string" },
+            "document": { "type": "string" },
+            "birth": { "type": "string" },
+            "email": { "type": "string" },
+            "cellphone": { "type": "string" },
+            "client_has_gateway": { "type": "string" },
+            "user_id": { "type": "string" }
+        }
+    },
+    "required": [
+        "name",
+        "document",
+        "birth",
+        "email",
+        "cellphone",
+        "client_has_gateway",
+        "user_id"
+    ],
+    "additionalProperties": false
+}
