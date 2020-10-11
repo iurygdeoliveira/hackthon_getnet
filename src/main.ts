@@ -11,11 +11,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 Vue.use(BootstrapVue);
 
-import { IconsPlugin, ButtonPlugin, CardPlugin, FormPlugin, FormInputPlugin } from "bootstrap-vue";
+import { IconsPlugin, SidebarPlugin, ButtonPlugin, CardPlugin, FormPlugin, FormInputPlugin } from "bootstrap-vue";
 Vue.use(IconsPlugin);
 Vue.use(ButtonPlugin);
 Vue.use(CardPlugin);
 Vue.use(FormPlugin);
+Vue.use(SidebarPlugin);
 Vue.use(FormInputPlugin);
 
 new Vue({

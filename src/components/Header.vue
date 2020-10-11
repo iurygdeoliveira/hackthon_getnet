@@ -25,18 +25,78 @@
         </b-button>
       </div>
     </div>
+    <div class="back">
+      <b-icon class="back-icon" icon="arrow-left" />
+    </div>
+    <button v-b-toggle.sidebar-1>adada</button>
+    <b-sidebar
+      id="sidebar-1"
+      backdrop
+      width="60%"
+      visible
+      right
+      sidebar-class="rounded-left rounded-lg"
+    >
+      <template slot="header-close">
+        <b-icon class="back-icon" style="color: #F20505;" icon="arrow-left" />
+      </template>
+      <div id="user-info">
+        <img id="user-img" :src="userInfo.imgURL" alt="" />
+        <div id="user-name">{{ userInfo.nome }}</div>
+        <div id="user-email">{{ userInfo.email }}</div>
+      </div>
+
+      <div id="func-list">
+        <div class="func-item">
+          <div class="item-img">
+            <img src="../../public/SPOILER_dinheiro_vermelhp.svg" alt="" />
+          </div>
+          <div class="item-text">RECEITA</div>
+        </div>
+        <div class="func-item">
+          <div class="item-img">
+            <img src="../../public/SPOILER_controle_gastos.svg" alt="" />
+          </div>
+          <div class="item-text">Controle de Gastos</div>
+        </div>
+        <div class="func-item">
+          <div class="item-img">
+            <img src="../../public/SPOILER_Adiicionar.svg" alt="" />
+          </div>
+          <div class="item-text">Adicionar Custos</div>
+        </div>
+        <div class="func-item">
+          <div class="item-img">
+            <img src="../../public/SPOILER_config.svg" alt="" />
+          </div>
+          <div class="item-text">Configurações</div>
+        </div>
+        <div class="func-item">
+          <div class="item-img">
+            <img src="../../public/SPOILER_sair.svg" alt="" />
+          </div>
+          <div class="item-text">Sair</div>
+        </div>
+      </div>
+    </b-sidebar>
   </div>
 </template>
 
 <script>
 import { Component, Vue } from "vue-property-decorator";
 
-import { BButton } from "bootstrap-vue";
+import { BButton, BSidebar } from "bootstrap-vue";
 
 @Component({
   components: {},
 })
-export default class HeaderComponent extends Vue {}
+export default class HeaderComponent extends Vue {
+  userInfo = {
+    imgURL: "https://picsum.photos/60?grayscale",
+    nome: "Maria",
+    email: "email@provedor.com",
+  };
+}
 </script>
 
 <style scoped>
@@ -52,18 +112,16 @@ export default class HeaderComponent extends Vue {}
   background-color: #f2f2f2;
 }
 
+.sidebar-c {
+  border: solid black 10px;
+}
+
 #brand {
   width: 100%;
   margin: auto;
   display: flex;
   justify-content: space-between;
 }
-
-/* .phone-only #login-btn {
-  position: absolute;
-  top: 30px;
-  right: 20px;
-} */
 
 #nav-el {
   flex-grow: 1;
@@ -104,6 +162,56 @@ export default class HeaderComponent extends Vue {}
 #login-btn > * {
   color: white;
   font-size: 14px;
+}
+
+.back {
+  padding: 2vw 4vw;
+}
+
+.back-icon {
+  font-size: 20px;
+  font-weight: bolder;
+  color: #f20505;
+}
+
+#user-info {
+  display: flex;
+  flex-direction: column;
+  padding: 6vw;
+}
+
+#user-img {
+  width: min-content;
+}
+
+#user-name {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+#user-email {
+  font-size: 16px;
+  opacity: 0.4;
+}
+
+#func-list {
+  padding: 6vw;
+}
+
+.func-item {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.item-text {
+  font-size: 16px;
+  text-align: center;
+}
+
+.item-img {
+  margin-right: 10px;
 }
 
 @media only screen and (min-width: 768px) {

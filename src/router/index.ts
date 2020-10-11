@@ -86,6 +86,11 @@ const routes: Array<RouteConfig> = [
     component: () => import(/* webpackChunkName: "carrinho" */ "@/views/Carrinho/Carrinho.vue")
   },
   {
+    path: "/vendas",
+    name: "Vendas",
+    component: () => import(/* webpackChunkName: "vendas" */ "@/views/Vendas/Vendas.vue")
+  },
+  {
     path: "*",
     redirect: "/",
   },
