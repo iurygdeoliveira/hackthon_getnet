@@ -15,7 +15,7 @@ services:
     php:
         build: ./docker/php
         volumes:
-            - ./www:/usr/share/nginx/html
+            - ./back/www:/usr/share/nginx/html
             - ./docker/php/php.ini:/usr/local/etc/php/php.ini
             - ./docker/php/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf
         restart: always
@@ -25,7 +25,7 @@ services:
         image: "nginx:latest"
         restart: always
         volumes:
-            - ./www:/usr/share/nginx/html
+            - ./back/www:/usr/share/nginx/html
             - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
         ports:
             - "80:80"
