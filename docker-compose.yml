@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+    mysql:
+        image: mysql:5.7
+        environment:
+            - MYSQL_USER=root
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=api
+        volumes:
+            - "db_data:/var/lib/mysql"
+        ports:
+            - "3306:3306"
+        restart: always
+    php:
+        build: ./docker/php
+        volumes:
+            - ./back/www:/usr/share/nginx/html
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - ./docker/php/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf
+        restart: always
+        depends_on:
+            - "mysql"
+    nginx:
+        image: "nginx:latest"
+        restart: always
+        volumes:
+            - ./back/www:/usr/share/nginx/html
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - "80:80"
+        depends_on:
+            - "php"
+volumes:
+    db_data:

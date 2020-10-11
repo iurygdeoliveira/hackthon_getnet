@@ -1,0 +1,36 @@
+{
+    "name": "iuryprof/hackthon_getnet",
+    "description": "Projeto para o Hackthon da getnet",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Iury Gomes de Oliveira",
+            "email": "iurygdeoliveira@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Api\\Controllers\\": "Api/Controllers/",
+            "Api\\Model\\": "Api/Model/"
+        },
+        "files": [
+            "Api/Boot/Config.php"
+        ]
+    },
+    "require": {
+        "php": "^7.4",
+        "ext-pdo": "^7.1",
+        "coffeecode/datalayer": "^1.1.4",
+        "slim/slim": "^4.5.0",
+        "slim/psr7": "^1.1.0",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/psr7": "^1.6.1",
+        "symfony/polyfill-intl-idn": "^v1.17.1"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "^v1.9.1",
+        "friendsofphp/php-cs-fixer": "^v2.16.4"
+    }
+}
