@@ -6,7 +6,11 @@
         <div class="line-el" id="nome-marca">+GRANA</div>
       </div>
       <div class="line-el phone-only" id="lgn-btn-p">
-        <b-button id="login-btn">LOGIN</b-button>
+        <b-button id="login-btn">
+          <router-link to="entrar">
+            LOGIN
+          </router-link>
+        </b-button>
       </div>
     </div>
     <div class="header-line" id="nav-el">
@@ -14,7 +18,11 @@
       <div class="line-el">Contato</div>
       <div class="line-el">Sobre</div>
       <div class="line-el phone-hidden" id="lgn-btn-p">
-        <b-button id="login-btn">LOGIN</b-button>
+        <b-button id="login-btn">
+          <router-link to="entrar">
+            LOGIN
+          </router-link>
+        </b-button>
       </div>
     </div>
   </div>
@@ -89,9 +97,13 @@ export default class HeaderComponent extends Vue {}
 
 #login-btn {
   padding: 2px;
-  font-size: 14px;
   background-color: #f20505;
   width: 80px;
+}
+
+#login-btn > * {
+  color: white;
+  font-size: 14px;
 }
 
 @media only screen and (min-width: 768px) {

@@ -2,8 +2,12 @@
   <div id="home-view">
     <div class="card" id="main-card">
       <div class="card-text" id="main-card-text">
-        Organize as finança de seu negócop com facilidade em qualquer lugar
-        <b-button id="comecar-btn">Começar agora</b-button>
+        Organize as finança de seu negócio com facilidade em qualquer lugar
+        <b-button class="comecar-btn">
+          <router-link to="cadastro">
+            Começar agora
+          </router-link>
+        </b-button>
       </div>
       <img
         src="https://picsum.photos/140?grayscale"
@@ -66,18 +70,40 @@
       <img src="https://picsum.photos/200/100?grayscale" alt="" />
     </div>
     <div class="card" id="register">
-      
+      <b-form style="margin-right: 10px;">
+        <div style="text-align: center;">Crie a sua conta</div>
+        <label class="" for="inline-form-input-name">Nome</label>
+        <b-input
+          id="inline-form-input-name"
+          class="mb-2 mr-sm-2 mb-sm-0"
+        ></b-input>
+        <label class="" for="inline-form-input-username">E-mail</label>
+        <b-input id="inline-form-input-username"></b-input>
+        <b-button class="comecar-btn">Iniciar cadastro</b-button>
+      </b-form>
+      <img src="https://picsum.photos/180?grayscale" alt="" />
     </div>
+    <footer-component />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-import { BButton, BCardGroup, BCard, BCardText, BCardImg } from "bootstrap-vue";
+import FooterComponent from "@/components/Footer.vue";
+
+import {
+  BButton,
+  BCardGroup,
+  BCard,
+  BCardText,
+  BCardImg,
+  BForm,
+  BFormInput,
+} from "bootstrap-vue";
 
 @Component({
-  components: {},
+  components: { "footer-component": FooterComponent },
 })
 export default class HomeView extends Vue {}
 </script>
@@ -109,14 +135,17 @@ export default class HomeView extends Vue {}
   margin: auto 0;
 }
 
-#comecar-btn {
+.comecar-btn {
   margin: auto;
   margin-top: 10px;
-  font-size: 15px;
   width: 120px;
   padding: 0;
   background-color: #f20505;
+}
+
+.comecar-btn > * {
   color: white;
+  font-size: 15px;
 }
 
 #main-card-img {
@@ -144,5 +173,12 @@ export default class HomeView extends Vue {}
   object-fit: cover;
   width: 100%;
   max-width: 100%;
+}
+
+#register {
+  width: 100%;
+  padding: 8vw 4vw;
+  display: flex;
+  justify-content: space-between;
 }
 </style>

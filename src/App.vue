@@ -11,7 +11,9 @@ import { Component, Vue } from "vue-property-decorator";
 import HeaderComponent from "@/components/Header.vue";
 
 @Component({
-  components: { "header-component": HeaderComponent },
+  components: {
+    "header-component": HeaderComponent,
+  },
 })
 export default class App extends Vue {}
 </script>
