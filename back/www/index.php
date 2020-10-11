@@ -32,6 +32,9 @@ if (IS_DEV_MODE) {
 // Create Authentication
 $app->post('/authentication', Payment::class . ':Authentication');
 
+// Create Authentication
+$app->post('/login', Payment::class . ':login');
+
 
 // RUN ###########################################
 

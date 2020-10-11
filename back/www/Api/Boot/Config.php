@@ -40,9 +40,9 @@ define("DATA_LAYER_CONFIG", [
     "driver" => "mysql",
     "host" => CONF_BD_HOST,
     "port" => CONF_BD_PORT,
-    "dbname" => "payment",
+    "dbname" => "api",
     "username" => "root",
-    "passwd" => "",
+    "passwd" => "root",
     "options" => [
         PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

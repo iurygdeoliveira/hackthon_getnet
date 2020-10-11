@@ -11,14 +11,54 @@ use GuzzleHttp\Client as ClientGetNet;
 use GuzzleHttp\Psr7\Request as RequestGetNet;
 use GuzzleHttp\Exception\RequestException;
 use CoffeeCode\DataLayer\Connect;
+use Api\Model\Auth;
+use GuzzleHttp\Psr7\Response as Psr7Response;
+use stdClass;
 
 class Payment
 {
+    protected $faker;
+
+    protected $connect;
+
+    protected $getnet;
+
+    protected $card;
+
+    protected $paydata;
+
+    protected $error;
+
     public function __construct()
     {
         if (IS_DEV_MODE) {
             $this->faker = Factory::create('pt_BR');
         }
+    }
+
+    public function checkBD()
+    {
+        $this->connect = Connect::getInstance();
+        $this->error = Connect::getError();
+
+        if ($this->error) {
+            return false;
+        }
+    }
+
+    private function errorBack(
+        string $message,
+        string $error
+    ): bool {
+
+        $this->error = [
+            "response" => [
+                "type" => "Error",
+                "message" => $message,
+                "error" => $error,
+            ],
+        ];
+        return true;
     }
 
     public function testRoute()
@@ -55,19 +95,26 @@ class Payment
             // var_dump($client);
             $request = new RequestGetNet('POST', ROUTE_AUTHENTICATION);
             $response = $client->send($request);
+
             $code = $response->getStatusCode();
             $phrase = $response->getReasonPhrase();
-            $body = $response->getBody()->getContents();
 
-            echo "\n" . "Response" . "\n";
-            echo "Code: $code" . "\n";
-            echo "pharse: $phrase" . "\n";
-            echo "body: " . "\n";
-            echo $body;
+            if ($code === 200) {
+                return json_decode($response->getBody()->getContents());
+            } else {
+                $this->error =
+                    [
+                        "code" => $response->getStatusCode(),
+                        "phrase" => $response->getReasonPhrase()
+                    ];
+                return false;
+            }
         } catch (RequestException $error) {
             print_r($error->getResponse());
         }
     }
+
+
 
     public function Authentication(
         Request $request,
@@ -75,7 +122,15 @@ class Payment
         array $args
     ): Response {
 
-        $this->requestGetNet(
+        if ($this->checkBD()) {
+            $this->errorBack("problem connect BD", $this->error);
+            $response->getBody()->write(json_encode($this->error));
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(503);
+        }
+
+        $token = $this->requestGetNet(
             'application/x-www-form-urlencoded',
             [
                 "scope" => "oob",
@@ -84,8 +139,24 @@ class Payment
             base64_encode(CONF_CLIENT_ID . ":" . CONF_CLIENT_SECRET)
         );
 
-        $parsedBody = $request->getParsedBody();
-        $response->getBody()->write($this->testRoute("Working Route"));
+        if (!$token) {
+
+            $this->errorBack("Authentication error", $this->error);
+            $response->getBody()->write(json_encode($this->error));
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(503);
+        }
+
+        $auth = new Auth();
+        $auth->token = $token->access_token;
+        $auth->type = $token->token_type;
+        $auth->expire = $token->expires_in;
+        $auth->save();
+        var_dump($auth);
+
+        // $parsedBody = $request->getParsedBody();
+        $response->getBody()->write($auth->data()->token);
 
         return $response
             ->withHeader('Content-Type', 'application/json')
