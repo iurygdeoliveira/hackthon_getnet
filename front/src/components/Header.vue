@@ -51,34 +51,144 @@
           <div class="item-img">
             <img src="../../public/SPOILER_dinheiro_vermelhp.svg" alt="" />
           </div>
-          <div class="item-text">RECEITA</div>
+          <div class="item-text">
+            <a @click.prevent v-b-modal.modal-lucro>
+              Receita
+            </a>
+          </div>
         </div>
         <div class="func-item">
           <div class="item-img">
             <img src="../../public/SPOILER_controle_gastos.svg" alt="" />
           </div>
-          <div class="item-text">Controle de Gastos</div>
+          <div class="item-text">
+            <a @click.prevent v-b-modal.modal-gastos>Controle de Gastos</a>
+          </div>
         </div>
         <div class="func-item">
           <div class="item-img">
             <img src="../../public/SPOILER_Adiicionar.svg" alt="" />
           </div>
-          <div class="item-text">Adicionar Custos</div>
+          <div class="item-text">
+            <a @click.prevent v-b-modal.modal-add-gastos>
+              Adicionar Custos
+            </a>
+          </div>
         </div>
         <div class="func-item">
           <div class="item-img">
             <img src="../../public/SPOILER_config.svg" alt="" />
           </div>
-          <div class="item-text">Configurações</div>
+          <div class="item-text">
+            <a href="">
+              Configurações
+            </a>
+          </div>
         </div>
         <div class="func-item">
           <div class="item-img">
             <img src="../../public/SPOILER_sair.svg" alt="" />
           </div>
-          <div class="item-text">Sair</div>
+          <div class="item-text">
+            <a href="">
+              Sair
+            </a>
+          </div>
         </div>
       </div>
     </b-sidebar>
+    <b-modal centered id="modal-lucro" size="lg" ok-only no-stacking>
+      <template slot="modal-title">
+        <div class="md-title">Lucro mensal</div>
+      </template>
+      <img src="../../public/SPOILER_lucro_anual.svg" alt="" />
+    </b-modal>
+    <b-modal centered id="modal-gastos" size="lg" ok-only no-stacking>
+      <template slot="modal-title">
+        <div class="md-title">Gastos permitidos</div>
+      </template>
+      <div class="modal-img">
+        <a @click.prevent v-b-modal.modal-add-gastos>
+          <img
+            style="margin-right: 0;"
+            width="40px"
+            src="../../public/SPOILER_Adiicionar.svg"
+            alt=""
+          />
+        </a>
+        <img src="../../public/SPOILER_gastos_permitidp.svg" alt="" />
+      </div>
+      <div class="sub-title">
+        R$ 2000,00
+      </div>
+      <div id="gastos-rec">
+        <div class="sub-title" style="text-align: left;">
+          Gastos recentes:
+        </div>
+        <div id="list-container">
+          <div class="item" v-for="item in gastosItens" :key="item.nome">
+            <div id="item-img">
+              <img src="https://picsum.photos/40?grayscale" alt="" />
+            </div>
+            <div id="item-text">
+              <div id="item-title">
+                <strong>{{ item.nome }}</strong>
+              </div>
+              <div id="item-description">{{ item.desc }}</div>
+            </div>
+            <div id="price">R$ {{ item.valor }}</div>
+          </div>
+        </div>
+      </div>
+    </b-modal>
+    <b-modal centered id="modal-add-gastos" size="lg" ok-only no-stacking>
+      <template slot="modal-title">
+        <div class="md-title">Adicionar gastos</div>
+      </template>
+      <div id="add-btn-img" style="display: flex;">
+        <img
+          style="margin: auto; margin-right: 0;"
+          width="40px"
+          src="../../public/SPOILER_Adiicionar.svg"
+          alt=""
+        />
+      </div>
+      <div id="n-g-form">
+        <b-form style="display: flex; flex-wrap: wrap; margin-bottom: 30px;">
+          <div class="ipt-group">
+            <label for="ipt-1">Nome</label>
+            <b-input id="ipt-1" />
+          </div>
+          <div class="ipt-group">
+            <label for="ipt-2">Data</label>
+            <b-input id="ipt-2" />
+          </div>
+          <div class="ipt-group">
+            <label for="ipt-3">Descrição</label>
+            <b-input id="ipt-3" />
+          </div>
+          <div class="ipt-group">
+            <label for="ipt-4">Valor</label>
+            <b-input id="ipt-4" />
+          </div>
+        </b-form>
+      </div>
+      <div class="sub-title" style="text-align: left;">Histórico</div>
+      <div id="list-container">
+        <div class="item" v-for="item in gHistItens" :key="item.nome">
+          <div id="item-img">
+            <img src="https://picsum.photos/40?grayscale" alt="" />
+          </div>
+          <div id="item-text">
+            <div id="item-title">
+              <strong>{{ item.nome }}</strong>
+            </div>
+            <div id="item-description">{{ item.desc }}</div>
+          </div>
+          <div id="price">R$ {{ item.valor }}</div>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -96,6 +206,60 @@ export default class HeaderComponent extends Vue {
     nome: "Maria",
     email: "email@provedor.com",
   };
+
+  gastosItens = [
+    {
+      nome: "Ana Carolina",
+      desc: "Kit festa - bolo 1kg",
+      valor: "150,00",
+      show: true,
+    },
+    {
+      nome: "Risa Midyett",
+      desc: "Bolo vulcão - 1kg",
+      valor: "49,00",
+      show: true,
+    },
+  ];
+
+  gHistItens = [
+    {
+      nome: "Ana Carolina",
+      desc: "Kit festa - bolo 1kg",
+      valor: "150,00",
+      show: true,
+    },
+    {
+      nome: "Risa Midyett",
+      desc: "Bolo vulcão - 1kg",
+      valor: "49,00",
+      show: true,
+    },
+    {
+      nome: "Ana Carolina",
+      desc: "Kit festa - bolo 1kg",
+      valor: "150,00",
+      show: true,
+    },
+    {
+      nome: "Risa Midyett",
+      desc: "Bolo vulcão - 1kg",
+      valor: "49,00",
+      show: true,
+    },
+    {
+      nome: "Ana Carolina",
+      desc: "Kit festa - bolo 1kg",
+      valor: "150,00",
+      show: true,
+    },
+    {
+      nome: "Risa Midyett",
+      desc: "Bolo vulcão - 1kg",
+      valor: "49,00",
+      show: true,
+    },
+  ];
 }
 </script>
 
@@ -210,8 +374,77 @@ export default class HeaderComponent extends Vue {
   text-align: center;
 }
 
+.item-text > a {
+  color: unset;
+  text-decoration: none;
+}
+
 .item-img {
   margin-right: 10px;
+}
+
+.md-title {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.modal-img {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-img a {
+  display: inline-block;
+  margin: auto;
+  margin-right: 0;
+}
+
+.modal-img img {
+  margin: auto;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 2vw;
+}
+
+#item-text {
+  font-size: 14px;
+}
+
+#item-description {
+  min-width: 150px;
+  max-width: 150px;
+  opacity: 0.5;
+}
+
+#price {
+  font-size: 14px;
+  align-self: flex-end;
+  min-width: 80px;
+  color: #f76654;
+}
+
+.sub-title {
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#list-container {
+  margin-top: -10px;
+}
+
+#n-g-form input {
+  background-color: #e2e2e2;
+}
+
+.ipt-group {
+  margin: 10px;
+  width: 40%;
 }
 
 @media only screen and (min-width: 768px) {
