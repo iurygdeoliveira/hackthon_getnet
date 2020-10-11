@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="37" height="37" viewBox="0 0 37 37">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Retângulo_1031" data-name="Retângulo 1031" width="37" height="37" transform="translate(313 191)" fill="#fff" stroke="#a61731" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Grupo_de_máscara_107" data-name="Grupo de máscara 107" transform="translate(-313 -191)" clip-path="url(#clip-path)">
+    <g id="g10" transform="translate(308.37 231.636)">
+      <rect id="rect1081" width="32.683" height="23.447" rx="1.726" transform="translate(5.361 -35.571)" fill="#fff" stroke="#a61731" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.463"/>
+      <rect id="rect1068" width="32.683" height="23.447" rx="1.726" transform="translate(7.947 -32.149)" fill="#fff" stroke="#a61731" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.463"/>
+      <path id="path1070" d="M11.483-9.09l14.386-14.2c2.862-2.242,4.726,1.449,9.837,5.891,2.362,2.1,2.587,2.652,4.914-1" fill="none" stroke="#a61731" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.463"/>
+      <circle id="circle1079" cx="1.58" cy="1.58" r="1.58" transform="translate(14.032 -26.717)" fill="#080e2c"/>
+    </g>
+  </g>
+</svg>

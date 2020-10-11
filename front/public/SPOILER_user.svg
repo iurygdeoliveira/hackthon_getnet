@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <clipPath id="clip-path">
+      <circle id="Elipse_11" data-name="Elipse 11" cx="20" cy="20" r="20" transform="translate(30 514)" fill="#a61731"/>
+    </clipPath>
+  </defs>
+  <g id="Grupo_de_máscara_98" data-name="Grupo de máscara 98" transform="translate(-30 -514)" clip-path="url(#clip-path)">
+    <g id="user-profile" transform="translate(29.999 514)">
+      <path id="Caminho_41228" data-name="Caminho 41228" d="M36.843,40H32.79A12.611,12.611,0,0,0,20,27.6,12.61,12.61,0,0,0,7.212,40H3.159A16.668,16.668,0,0,1,20,23.548,16.668,16.668,0,0,1,36.843,40Z" fill="#a61731"/>
+      <path id="Caminho_41229" data-name="Caminho 41229" d="M20,22.231A11.116,11.116,0,1,1,31.12,11.116,11.13,11.13,0,0,1,20,22.231ZM20,4.053a7.063,7.063,0,1,0,7.065,7.063A7.07,7.07,0,0,0,20,4.053Z" fill="#a61731"/>
+    </g>
+  </g>
+</svg>
