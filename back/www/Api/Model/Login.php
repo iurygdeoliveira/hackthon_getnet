@@ -8,6 +8,6 @@ class Login extends Datalayer
 {
     public function __construct()
     {
-        parent::__construct("login", ["email", "pass"]);
+        parent::__construct("login", ["cpf", "pass", "nome"]);
     }
 }

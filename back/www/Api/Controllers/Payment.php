@@ -12,8 +12,7 @@ use GuzzleHttp\Psr7\Request as RequestGetNet;
 use GuzzleHttp\Exception\RequestException;
 use CoffeeCode\DataLayer\Connect;
 use Api\Model\Auth;
-use GuzzleHttp\Psr7\Response as Psr7Response;
-use stdClass;
+use DateTime;
 
 class Payment
 {
@@ -33,6 +32,9 @@ class Payment
     {
         if (IS_DEV_MODE) {
             $this->faker = Factory::create('pt_BR');
+            define("TYPE_RESPONSE", 'text/html');
+        } else {
+            define("TYPE_RESPONSE", 'application/json');
         }
     }
 
@@ -64,8 +66,6 @@ class Payment
     public function testRoute()
     {
         $parameters = func_get_args();
-        // var_dump($parameters);
-
         return $parameters[0];
     }
 
@@ -110,27 +110,14 @@ class Payment
                 return false;
             }
         } catch (RequestException $error) {
-            print_r($error->getResponse());
+            $this->error = $error->getResponse();
+            return false;
         }
     }
 
-
-
-    public function Authentication(
-        Request $request,
-        Response $response,
-        array $args
-    ): Response {
-
-        if ($this->checkBD()) {
-            $this->errorBack("problem connect BD", $this->error);
-            $response->getBody()->write(json_encode($this->error));
-            return $response
-                ->withHeader('Content-Type', 'application/json')
-                ->withStatus(503);
-        }
-
-        $token = $this->requestGetNet(
+    public function getToken()
+    {
+        return $this->requestGetNet(
             'application/x-www-form-urlencoded',
             [
                 "scope" => "oob",
@@ -138,93 +125,82 @@ class Payment
             ],
             base64_encode(CONF_CLIENT_ID . ":" . CONF_CLIENT_SECRET)
         );
+    }
 
-        if (!$token) {
+    public function Authentication(
+        Request $request,
+        Response $response,
+        array $args
+    ): Response {
 
-            $this->errorBack("Authentication error", $this->error);
+        // CHEKANDO SE EXISTE PROBLEMA DE CONEXÃO COM O BANCO
+        if ($this->checkBD()) {
+            $this->errorBack("problem connect BD", $this->error);
             $response->getBody()->write(json_encode($this->error));
             return $response
-                ->withHeader('Content-Type', 'application/json')
+                ->withHeader('Content-Type', TYPE_RESPONSE)
                 ->withStatus(503);
         }
 
+        // VERIFICANDO SE TOKEN EXPIROU
         $auth = new Auth();
-        $auth->token = $token->access_token;
-        $auth->type = $token->token_type;
-        $auth->expire = $token->expires_in;
-        $auth->save();
-        var_dump($auth);
+        $authData = $auth->findById(1);
 
-        // $parsedBody = $request->getParsedBody();
-        $response->getBody()->write($auth->data()->token);
+        // EXISTE ALGUM TOKEN SALVO ?
+        if (!$authData) {
 
-        return $response
-            ->withHeader('Content-Type', 'application/json')
-            ->withStatus(200);
+            // ENTÃO OBTER TOKEN
+            $token = $this->getToken();
+
+            if (!$token) {
+                // ERRO NA GERAÇÃO DO TOKEN
+                $this->errorBack("Authentication error", $this->error);
+                $response->getBody()->write(json_encode($this->error));
+                return $response
+                    ->withHeader('Content-Type', TYPE_RESPONSE)
+                    ->withStatus(503);
+            }
+
+            $auth->token = $token->access_token;
+            $auth->type = $token->token_type;
+            $auth->expire = $token->expires_in;
+            $auth->save();
+
+            // RETORNANDO TOKEN RECEM CRIADO
+            $response->getBody()->write($token->access_token);
+            return $response
+                ->withHeader('Content-Type', TYPE_RESPONSE)
+                ->withStatus(200);
+        }
+
+        $interval = date_diff(new DateTime("now"), new DateTime($authData->data->updated_at));
+
+        if ($interval->h >= 1) {
+
+            // RENOVANDO TOKEN
+            $token = $this->getToken();
+
+            if (!$token) {
+                // ERRO NA GERAÇÃO DO TOKEN
+                $this->errorBack("Authentication error", $this->error);
+                $response->getBody()->write(json_encode($this->error));
+                return $response
+                    ->withHeader('Content-Type', TYPE_RESPONSE)
+                    ->withStatus(503);
+            }
+
+            $authData->data->token = $token->access_token;
+            $authData->data->type = $token->token_type;
+            $authData->data->expire = $token->expires_in;
+            $authData->save();
+            var_dump($authData);
+
+            // $parsedBody = $request->getParsedBody();
+            $response->getBody()->write($token->access_token);
+
+            return $response
+                ->withHeader('Content-Type', TYPE_RESPONSE)
+                ->withStatus(200);
+        }
     }
-
-
-    // public function createToken(Request $request, Response $response, array $args): Response
-    // {
-    //     $parsedBody = $request->getParsedBody();
-    //     $response->getBody()->write(json_encode("Hello world!"));
-
-    //     return $response
-    //         ->withHeader('Content-Type', 'application/json')
-    //         ->withStatus(200);
-
-    //     // REQUISIÇÃO SINCRONA
-    //     try {
-
-    //         $request = new Request('POST', CREATE_TRANSACTIONS);
-    //         $response = $client->send($request);
-    //         $headers = $response->getHeaders();
-    //         $code = $response->getStatusCode(); // 200
-    //         $reason = $response->getReasonPhrase(); // OK
-    //         $body = json_decode($response->getBody()->getContents());
-    //         echo "<br> ## Headers ## <br>";
-    //         var_dump($headers);
-    //         echo "## Code: $code ## <br>";
-    //         echo "## Reason: $reason ## <br>";
-    //         echo "## Body ## <br>";
-    //         var_dump($body);
-    //     } catch (ClientException $error) {
-    //         var_dump(Psr7\str($error->getRequest()));
-    //         var_dump(Psr7\str($error->getResponse()));
-    //     }
-
-    //     //Requisição Assíncrona
-    //     //     $getMessage = new Client([
-    //     //         'base_uri' => CONF_URL_PAYMENT,
-    //     //         'timeout' => 0,
-    //     //         'headers' => [
-    //     //             'Content-Type' => 'application/json',
-    //     //             'merchant_id' => CONF_MERCHANT_ID,
-    //     //             'merchant_key' => CONF_MERCHANT_KEY
-    //     //         ],
-    //     //         'body' => json_encode($data)
-    //     //     ]);
-
-    //     //     $request = new Request('GET', CREATE_TRANSACTIONS);
-    //     //     $promise = $storage->sendAsync($request);
-
-    //     //     $promise->then(
-    //     //         function (ResponseInterface $response) {
-    //     //             global $headers, $code, $phrase, $body;
-    //     //             $headers = $response->getHeaders();
-    //     //             $code = $response->getStatusCode();
-    //     //             $phrase = $response->getReasonPhrase();
-    //     //             $body = json_decode($response->getBody()->getContents());
-    //     //         },
-    //     //         function (RequestException $error) {
-    //     //             echo "<br> ## Error ## <br>";
-    //     //             var_dump($error->getMessage());
-    //     //             echo "<br> ## Request ## <br>";
-    //     //             var_dump($error->getRequest()->getMethod());
-    //     //         }
-    //     //     );
-
-    //     //     $promise->wait();
-    //     // }
-    // }
 }
