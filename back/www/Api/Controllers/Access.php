@@ -117,7 +117,7 @@ class Access
             );
             return $response
                 ->withHeader('Content-Type', TYPE_RESPONSE)
-                ->withStatus(200);
+                ->withStatus(401);
         }
 
         // VERIFICANDO SE LOGIN EXISTE
@@ -131,7 +131,7 @@ class Access
             );
             return $response
                 ->withHeader('Content-Type', TYPE_RESPONSE)
-                ->withStatus(200);
+                ->withStatus(401);
         }
 
         // VERIFICANDO SE SENHA ESTÁ CORRETA
@@ -148,7 +148,7 @@ class Access
         $response->getBody()->write("incorret password");
         return $response
             ->withHeader('Content-Type', TYPE_RESPONSE)
-            ->withStatus(200);
+            ->withStatus(401);
         //      }
     }
 }
