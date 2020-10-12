@@ -9,7 +9,7 @@ use Slim\Exception\HttpNotFoundException;
 use Slim\Factory\AppFactory;
 use Api\Controllers\Payment;
 use Api\Controllers\Access;
-use Api\Controllers\Register;
+use Api\Controllers\Sale;
 
 $app = AppFactory::create();
 
@@ -41,6 +41,10 @@ $app->post('/login', Access::class . ':login');
 
 // Create and Check Login
 $app->post('/register', Access::class . ':register');
+
+//Sales
+$app->post('/sales', Sale::class . ':register');
+$app->get('/sales', Sale::class . ':getSales');
 
 $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function ($request, $response) {
     throw new HttpNotFoundException($request);
