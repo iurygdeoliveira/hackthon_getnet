@@ -1,7 +1,9 @@
 .DS_Store
+front/node_modules
 node_modules
 /dist
 www/vendor/
+back/www/vendor/
 .gitignore
 
 # local env files
