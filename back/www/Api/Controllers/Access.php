@@ -59,7 +59,7 @@ class Access
         return $parameters[0];
     }
 
-    public function ValidateCPF(string $cpf): string
+    public function ValidateCPF(string $cpf)
     {
         // Extrai somente os números
         $cpf = preg_replace('/[^0-9]/is', '', $cpf);
@@ -110,6 +110,7 @@ class Access
         //VERIFICANDO VALIDADE DO CPF
         $body->cpf = $this->ValidateCPF($body->cpf);
 
+
         if (!$body->cpf) {
 
             $response->getBody()->write(
@@ -122,7 +123,7 @@ class Access
 
         // VERIFICANDO SE LOGIN EXISTE
         $login = new Login();
-        $loginData = $login->find("cpf=:cpf", "cpf=$body->cpf");
+        $loginData = $login->find("cpf=:cpf", "cpf=$body->cpf")->fetch();
 
         if (empty($loginData->data())) {
 
@@ -136,7 +137,7 @@ class Access
 
         // VERIFICANDO SE SENHA ESTÁ CORRETA
         // if (password_verify($body->pass, $loginData->data()->pass)) {
-        if ($loginData->data()->pass) {
+        if ($body->pass === $loginData->data()->pass) {
 
             $response->getBody()->write($loginData->data()->name);
             return $response
