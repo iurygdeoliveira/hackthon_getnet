@@ -134,6 +134,7 @@ class Access
                 ->withStatus(200);
         }
 
+        // VERIFICANDO SE SENHA ESTÁ CORRETA
         if (password_verify($body->pass, $loginData->data()->pass)) {
 
             $response->getBody()->write($loginData->data()->name);
@@ -142,59 +143,8 @@ class Access
                 ->withStatus(200);
         }
 
-
-        // EXISTE ALGUM TOKEN SALVO ?
-        // if (!$authData) {
-
-        //     // ENTÃO OBTER TOKEN
-        //     $token = $this->getToken();
-
-        //     if (!$token) {
-        //         // ERRO NA GERAÇÃO DO TOKEN
-        //         $this->errorBack("Authentication error", $this->error);
-        //         $response->getBody()->write(json_encode($this->error));
-        //         return $response
-        //             ->withHeader('Content-Type', TYPE_RESPONSE)
-        //             ->withStatus(503);
-        //     }
-
-        //     $auth->token = $token->access_token;
-        //     $auth->type = $token->token_type;
-        //     $auth->expire = $token->expires_in;
-        //     $auth->save();
-
-        //     // RETORNANDO TOKEN RECEM CRIADO
-        //     $response->getBody()->write($token->access_token);
-        //     return $response
-        //         ->withHeader('Content-Type', TYPE_RESPONSE)
-        //         ->withStatus(200);
-        // }
-
-        // $interval = date_diff(new DateTime("now"), new DateTime($authData->data->updated_at));
-
-        // if ($interval->h >= 1) {
-
-        //     // RENOVANDO TOKEN
-        //     $token = $this->getToken();
-
-        //     if (!$token) {
-        //         // ERRO NA GERAÇÃO DO TOKEN
-        //         $this->errorBack("Authentication error", $this->error);
-        //         $response->getBody()->write(json_encode($this->error));
-        //         return $response
-        //             ->withHeader('Content-Type', TYPE_RESPONSE)
-        //             ->withStatus(503);
-        //     }
-
-        //     $authData->data->token = $token->access_token;
-        //     $authData->data->type = $token->token_type;
-        //     $authData->data->expire = $token->expires_in;
-        //     $authData->save();
-        //     var_dump($authData);
-
-
-        $response->getBody()->write($this->testRoute("teste"));
-
+        // SENHA INCORRETA
+        $response->getBody()->write("incorret password");
         return $response
             ->withHeader('Content-Type', TYPE_RESPONSE)
             ->withStatus(200);
