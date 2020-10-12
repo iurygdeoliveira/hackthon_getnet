@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import eventBus from "./eventbus";
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -10,7 +12,8 @@ export default new Vuex.Store({
       isLogged: false
     },
     serverURL: "http://64.227.105.196",
-    firstLoad: true,
+    cart: [] as Array<any>,
+    cartNext: 0
   },
   mutations: {
     logIn(state, payload: string) {
@@ -22,8 +25,14 @@ export default new Vuex.Store({
       state.user.isLogged = false;
       state.user.nome = "";
     },
-    setLoad(state) {
-      state.firstLoad = false;
+    addItemCart(state, payload) {
+      state.cart[state.cartNext] = payload["data"];
+      state.cartNext += 1;
+    },
+    removeItemCart(state, payload) {
+      const index = state.cart.findIndex(el => el.id == payload["data"])
+      state.cart.splice(index, 1);
+      state.cartNext -= 1;
     }
   },
   actions: {
@@ -33,8 +42,11 @@ export default new Vuex.Store({
     logOut(context) {
       context.commit('logOut');
     },
-    setLoad(context) {
-      context.commit('setLoad');
+    addItemCart(context, payload) {
+      context.commit('addItemCart', payload);
+    },
+    removeItemCart(context, payload) {
+      context.commit("removeItemCart", payload);  
     }
   },
   getters: {
@@ -44,8 +56,8 @@ export default new Vuex.Store({
     serverURL(state) {
       return state.serverURL;
     },
-    firstLoad(state) {
-      return state.firstLoad;
+    getCart(state) {
+      return state.cart;
     }
   },
   modules: {

@@ -23,7 +23,7 @@
         </div>
       </b-form>
       <img
-        @click.prevent="newVenda"
+        @click.prevent="newCartItem"
         width="50px"
         src="../../../public/SPOILER_Adiicionar.svg"
         alt=""
@@ -73,6 +73,8 @@
 import Axios from "axios";
 import { Component, Vue } from "vue-property-decorator";
 
+import eventBus from "../../store/eventbus";
+
 @Component({})
 export default class VendasAddView extends Vue {
   vendasInfo = {
@@ -81,22 +83,25 @@ export default class VendasAddView extends Vue {
     amount: "",
   };
 
-  async newVenda() {
-    try {
-      const resp = await Axios.post(
-        this.$store.getters["serverURL"] + "/sales",
-        this.vendasInfo
-      );
-      this.vendasInfo.name = this.vendasInfo.description = this.vendasInfo.amount =
-        "";
-      console.log(await Axios.get(this.$store.getters["serverURL"] + "/sales"));
-    } catch (error) {
-      console.error(error);
-    }
+  async newCartItem() {
+    this.vendasInfo["id"] = new Date().getTime();
+    const newItem = this.vendasInfo;
+    await this.$store.dispatch("addItemCart", {
+      data: newItem,
+    });
+    this.vendasInfo = {
+      name: "",
+      description: "",
+      amount: "",
+    };
   }
 
   goTo(route: string) {
     this.$router.push(route);
+  }
+
+  sleep(ms: number): Promise<void> {
+    return new Promise((res) => setTimeout(res, ms));
   }
 }
 </script>

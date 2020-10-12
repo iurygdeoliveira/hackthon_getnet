@@ -3,9 +3,9 @@
     <div class="header-line" id="brand">
       <div style="flex-frow: 1; margin: auto; display: flex;">
         <router-link to="/">
-          <img src="https://picsum.photos/40?grayscale" alt=""
-        /></router-link>
-        <div class="line-el" id="nome-marca">+GRANA</div>
+          <img width="45px" src="../../public/Logo_maquininha.svg" alt="" />
+        </router-link>
+        <div class="line-el" id="nome-marca">TopGrana</div>
       </div>
       <div class="line-el phone-only" id="lgn-btn-p">
         <b-button id="login-btn" v-if="!userInfo.isLogged">
@@ -212,8 +212,6 @@ export default class HeaderComponent extends Vue {
 
   created() {
     this.userInfo = this.$store.getters["user"];
-    if (!this.$store.getters["firstLoad"] && !this.userInfo["isLogged"])
-      this.$router.replace("/entrar");
   }
 
   userInfo: any;

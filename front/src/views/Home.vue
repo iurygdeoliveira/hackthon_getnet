@@ -9,11 +9,7 @@
           </router-link>
         </b-button>
       </div>
-      <img
-        src="https://picsum.photos/140?grayscale"
-        alt=""
-        id="main-card-img"
-      />
+      <img src="../../public/NOTRE_DAME.svg" alt="" id="main-card-img" />
     </div>
     <div class="card">
       <div class="card-text" id="msg-1">
@@ -29,7 +25,7 @@
           style="width: 32%; margin: auto; margin-top: 0; font-size: 13px; text-align: center;"
         >
           <b-card-body style="padding: 0;">
-            <b-card-img top src="https://picsum.photos/80?grayscale" />
+            <b-card-img top src="./MEIO1.svg" />
             <b-card-text style="margin-top: 15px;">
               <strong> Acesso online</strong><br />
               Acesse a nossa plataforma e descubra.</b-card-text
@@ -43,7 +39,7 @@
           style="width: 32%; margin: auto; margin-top: 0; font-size: 13px; text-align: center;"
         >
           <b-card-body style="padding: 0;">
-            <b-card-img top src="https://picsum.photos/80?grayscale" />
+            <b-card-img top src="./MEIO2.svg" />
             <b-card-text style="margin-top: 15px;">
               <strong> Uso simples</strong><br />
               Acesse a qualquer momento e realize suas vendas!</b-card-text
@@ -57,7 +53,7 @@
           style="width: 32%; margin: auto; margin-top: 0; font-size: 13px; text-align: center;"
         >
           <b-card-body style="padding: 0;">
-            <b-card-img top src="https://picsum.photos/80?grayscale" />
+            <b-card-img top src="./MEIO3.svg" />
             <b-card-text style="margin-top: 15px;">
               <strong> Controle financeiro</strong><br />
               Acesse a nossa plataforma e descubra como.</b-card-text
@@ -67,7 +63,7 @@
       </b-card-group>
     </div>
     <div class="card" id="big-img">
-      <img src="https://picsum.photos/200/100?grayscale" alt="" />
+      <img src="../../public/ft.png" alt="" />
     </div>
     <div class="card" id="register">
       <b-form style="margin-right: 10px;">
@@ -81,7 +77,7 @@
         <b-input id="inline-form-input-username"></b-input>
         <b-button class="comecar-btn">Iniciar cadastro</b-button>
       </b-form>
-      <img src="https://picsum.photos/180?grayscale" alt="" />
+      <img src="../../public/CARINHA_DA_MAQUININHA.svg" alt="" />
     </div>
     <footer-component />
   </div>

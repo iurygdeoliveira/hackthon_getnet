@@ -1,0 +1,36 @@
+<svg id="Componente_36_25" data-name="Componente 36 – 25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="310" height="415" viewBox="0 0 310 415">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="imageMask" width="35" height="40" transform="translate(0 0)" fill="#17c261"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="white_bg" data-name="white bg" width="310" height="415" rx="30" fill="#fff" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    </clipPath>
+    <clipPath id="clip-path-3">
+      <rect id="mask" width="310" height="45" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Pin" transform="translate(56 102)">
+    <g id="bubble">
+      <path id="blue_bg" data-name="blue bg" d="M8,0h92a8,8,0,0,1,8,8V28a0,0,0,0,1,0,0H8a8,8,0,0,1-8-8V8A8,8,0,0,1,8,0Z" transform="translate(0 0)" fill="#17c261"/>
+      <g id="pointer_mask" data-name="pointer mask" transform="translate(73 13)" clip-path="url(#clip-path)">
+        <g id="Group_1" data-name="Group 1" transform="translate(23.862 6.451)">
+          <path id="Polygon_1" data-name="Polygon 1" d="M318.125,339.439l-11.761-20.37h23.521Z" transform="translate(-306.365 -319.068)" fill="#17c261"/>
+        </g>
+      </g>
+    </g>
+    <text id="_2.400_00_R_" data-name="+ 2.400,00 R$" transform="translate(9.498 18.82)" fill="#fff" font-size="11" font-family="Montserrat-SemiBold, Montserrat" font-weight="600" letter-spacing="0em"><tspan x="0" y="0">+ 2.400,00 R$</tspan></text>
+  </g>
+  <g id="Chart_mask" data-name="Chart mask" clip-path="url(#clip-path-2)">
+    <path id="Blue_bg-2" data-name="Blue bg" d="M313.4,20.2c-5.159.828-18.156,1.43-25.984-2.025C274.81,12.617,272.193,1,264.086,1c-12.961,0-18.349,34.286-36.037,34-6.125-.1-7.218-4.384-15.045-4.384-12.478.02-15.731,10.91-24.3,10.445-13.114-.707-15.2-26.811-30.446-28.629-8.26-.97-10.776,6.283-21.2,5.718-12.809-.667-14.639-11.941-24.677-13.133C94.041,2.839,84.638,38.579,60.342,39.711c-14.359.667-19.8-11.435-32.759-9.435C14.012,32.4,5.778,47.853,1,60.258V264.6l24.359,19.2H290.267l21.772-19.169Z" transform="translate(-1.487 139.648)" fill="rgba(82,60,248,0.15)"/>
+    <path id="Chart_line" data-name="Chart line" d="M-3.621,63.178a2.879,2.879,0,0,1-.732-.081,1.963,1.963,0,0,1-1.666-2.526C1.25,41.56,16.576,31.134,28.109,29.336c7.6-1.172,12.845,1.8,17.918,4.667,4.543,2.566,8.833,5.011,14.965,4.728,11.256-.525,19.23-9.738,26.927-18.648,7.672-8.89,14.965-17.274,25.287-16.022,5.527.667,8.808,3.738,11.987,6.708,3.356,3.132,6.511,6.1,12.315,6.4,4.467.242,7.167-1.253,10.019-2.829,2.953-1.637,6.284-3.475,11.255-2.889,9.136,1.091,13.931,9.233,18.17,16.426,3.609,6.122,7.016,11.9,11.861,12.183,2.65.182,4.719-1.374,7.9-3.859,3.735-2.93,8.353-6.587,16.05-6.587a18.669,18.669,0,0,1,9.943,2.728A9.84,9.84,0,0,0,227.755,34h.151c7.773,0,13.426-9.455,18.4-17.8C251.2,7.88,255.919,0,263.414,0c5.375,0,8.656,3.657,12.114,7.516,3.1,3.455,6.612,7.395,12.265,9.9,7.6,3.374,16.732,2.384,20.315,1.8a2.571,2.571,0,0,1,2.978,1.576,2.084,2.084,0,0,1-1.968,2.384c-5.123.828-15.041,1.637-23.773-2.243-6.662-2.95-10.7-7.455-13.931-11.092-3.23-3.576-5.35-5.8-8-5.8-4.315,0-8.555,7.071-12.618,13.921-5.628,9.415-11.987,20.1-22.94,20.1h-.278a15.377,15.377,0,0,1-7.8-2.364,12.785,12.785,0,0,0-7.066-2.02c-5.653,0-8.984,2.647-12.543,5.435-3.306,2.606-6.713,5.253-11.76,5.011-7.8-.424-12.013-7.577-16.1-14.486-3.886-6.587-7.9-13.4-14.36-14.163-3-.364-4.946.727-7.621,2.2-3.129,1.717-7.016,3.839-13.224,3.536-7.924-.424-12.114-4.344-15.823-7.8-2.8-2.627-5.249-4.91-8.883-5.334-7.218-.869-13.628,6.506-20.366,14.325-8,9.253-17.06,19.739-30.789,20.366-7.9.4-13.35-2.728-18.17-5.455-4.593-2.606-8.53-4.849-14.032-4-9.565,1.5-23.578,10.971-30.266,28.447A2.486,2.486,0,0,1-3.621,63.178Z" transform="translate(0.808 140.293)" fill="#17c261"/>
+  </g>
+  <g id="Pointer" transform="translate(145 145)">
+    <circle id="blue_circle" data-name="blue circle" cx="19" cy="19" r="19" transform="translate(0 0)" fill="#17c261"/>
+    <circle id="white_circle" data-name="white circle" cx="7" cy="7" r="7" transform="translate(12 12)" fill="#fff"/>
+  </g>
+  <g id="Months" transform="translate(0 272)" clip-path="url(#clip-path-3)">
+    <path id="Highlighter" d="M8,0H34a8,8,0,0,1,8,8v9a8,8,0,0,1-8,8H8a8,8,0,0,1-8-8V8A8,8,0,0,1,8,0Z" transform="translate(83 11)" fill="#17c261"/>
+    <text id="_2020_2021_" data-name="                                  2020                             2021                             " transform="translate(-10.776 28.053)" fill="#16110d" font-size="11" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0" xml:space="preserve">                                  </tspan><tspan y="0" xml:space="preserve" fill="#fff">2020                             </tspan><tspan y="0" xml:space="preserve" fill="#060505">2021                             </tspan></text>
+  </g>
+</svg>

@@ -14,6 +14,7 @@
         </div>
         <div style="display: flex; flex-direction: column;">
           <img
+            @click.prevent="deleteItem(item.id)"
             width="20px"
             style="margin: auto;"
             src="../../../public/lixo.svg"
@@ -76,10 +77,30 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component({})
 export default class CarrinhoAddView extends Vue {
-  cartItens = [
-    { price: "60,00", title: "Bolo", desc: "Bolo sabor chocolate - 1kg" },
-    { price: "40,00", title: "Docinhos", desc: "1 cento de docinhos" },
-  ];
+  // cartItens = [
+  //   { price: "60,00", title: "Bolo", desc: "Bolo sabor chocolate - 1kg" },
+  //   { price: "40,00", title: "Docinhos", desc: "1 cento de docinhos" },
+  // ];
+
+  cartItens = [];
+
+  async mounted() {
+    this.cartItens = await this.$store.getters["getCart"];
+
+    this.cartItens = this.cartItens.map((el) => {
+      return {
+        price: el.amount,
+        desc: el.description,
+        title: el.name,
+        id: el.id,
+      };
+    });
+  }
+
+  async deleteItem(id: number) {
+    this.$store.dispatch("removeItemCart", { id });
+    this.cartItens = await this.$store.getters["getCart"];
+  }
 
   getTotal() {
     return this.cartItens

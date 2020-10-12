@@ -16,11 +16,7 @@ import Axios from "axios";
     "header-component": HeaderComponent,
   },
 })
-export default class App extends Vue {
-  // mounted() {
-  //   setTimeout(() => this.$store.dispatch("setLoad"), 100);
-  // }
-}
+export default class App extends Vue {}
 </script>
 
 <style>

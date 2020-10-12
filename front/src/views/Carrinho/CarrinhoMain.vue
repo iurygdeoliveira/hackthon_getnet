@@ -4,15 +4,15 @@
       Carrinho:
       <img
         @click.prevent="goTo('/carrinho/adicionar')"
-        style="margin-left: 90px;"
-        width="30px"
+        style="margin-left: 170px;"
+        width="35px"
         src="../../../public/SPOILER_Adiicionar.svg"
         alt=""
       />
     </div>
     <!-- Listagem definida esclusivamente pelo Estado global  -->
     <div id="itens-list">
-      <div class="item" v-for="item in cartItens" :key="item.title">
+      <div class="item" v-for="item in cartItens" :key="item.id">
         <div id="item-img">
           <img src="https://picsum.photos/30?grayscale" alt="" />
         </div>
@@ -38,17 +38,21 @@
           <div class="item-title">Débito / Crédito</div>
           <b-icon icon="arrow-right" />
         </div>
-        <div class="met-item">
+        <div class="met-item" @click.prevent="goTo('/pagamento/qrcode')">
           <b-icon icon="credit-card-fill" />
-          <div class="item-title">Transferências</div>
+          <div class="item-title">
+            QR Code
+          </div>
           <b-icon icon="arrow-right" />
         </div>
-        <div class="met-item">
+        <div class="met-item" @click.prevent="goTo('/pagamento/link')">
           <b-icon icon="credit-card-fill" />
-          <div class="item-title">QR Code / Link</div>
+          <div class="item-title">
+            Link
+          </div>
           <b-icon icon="arrow-right" />
         </div>
-        <div class="met-item">
+        <div class="met-item" @click.prevent="goTo('/pagamento/dinheiro')">
           <b-icon icon="credit-card-fill" />
           <div class="item-title">Dinheiro</div>
           <b-icon icon="arrow-right" />
@@ -135,17 +139,41 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component({})
 export default class CarrinhoMainView extends Vue {
-  cartItens = [
-    { price: "60,00", title: "Bolo", desc: "Bolo sabor chocolate - 1kg" },
-    { price: "40,00", title: "Docinhos", desc: "1 cento de docinhos" },
-  ];
+  cartItens: Array<any> = [];
+
+  async mounted() {
+    this.cartItens = await this.$store.getters["getCart"];
+    // this.cartItens = this.$store.state["cart"] as Array<any>;
+
+    this.cartItens = this.cartItens.map((el) => {
+      return {
+        price: el.amount,
+        desc: el.description,
+        title: el.name,
+        id: el.id,
+      };
+    });
+  }
+
+  async getCartItems() {
+    return await this.$store.getters["getCart"].map((el) => {
+      return {
+        price: el.amount,
+        desc: el.description,
+        title: el.name,
+        id: el.id,
+      };
+    });
+  }
 
   getTotal() {
-    return this.cartItens
-      .map((el) => Number(el.price.replace(",", ".")))
-      .reduce((acc, el) => acc + el)
-      .toFixed(2)
-      .replace(".", ",");
+    return this.cartItens.length > 0
+      ? this.cartItens
+          .map((el) => Number(el.price.replace(",", ".")))
+          .reduce((acc, el) => acc + el)
+          .toFixed(2)
+          .replace(".", ",")
+      : "";
   }
 
   goTo(route: string) {

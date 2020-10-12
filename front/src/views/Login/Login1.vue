@@ -2,7 +2,7 @@
   <div id="login1-view">
     <div id="bem-v-text"><strong>Bem vindo de volta!</strong></div>
     <div id="mascote-img">
-      <img src="https://picsum.photos/180?grayscale" alt="" />
+      <img src="../../../public/CARINHA_DA_MAQUININHA.svg" alt="" />
     </div>
     <b-form
       style="margin-right: 10px; display: flex; flex-direction: column; width: 100%; padding: 5vw 5vw 0;"

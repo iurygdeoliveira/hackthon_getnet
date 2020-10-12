@@ -4,7 +4,7 @@
       Faça sua Inscrição
     </div>
     <div id="etapas" style="margin-top: 10px;">
-      <img width="100%" src="https://picsum.photos/200/50?grayscale" alt="" />
+      <img width="100%" src="../../../public/state_2.svg" alt="" />
     </div>
     <div id="cadastro2-content">
       <strong>Tudo pronto! Em breve entraremos em contato</strong>
