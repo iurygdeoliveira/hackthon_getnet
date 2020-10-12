@@ -135,7 +135,8 @@ class Access
         }
 
         // VERIFICANDO SE SENHA ESTÁ CORRETA
-        if (password_verify($body->pass, $loginData->data()->pass)) {
+        // if (password_verify($body->pass, $loginData->data()->pass)) {
+        if ($loginData->data()->pass) {
 
             $response->getBody()->write($loginData->data()->name);
             return $response
