@@ -11,16 +11,24 @@
         id="inline-form-input-name"
         class="mb-2 mr-sm-2 mb-sm-0"
         placeholder="CPF"
+        v-model="userInfo.cpf"
       ></b-input>
       <b-input
         type="password"
         id="inline-form-input-username"
         placeholder="Senha"
+        v-model="userInfo.pass"
       ></b-input>
       <router-link class="forgot-pwd" to="entrar/recuperar"
         >Esqueceu a senha?</router-link
       >
-      <b-button id="submit-btn">Login</b-button>
+      <b-button
+        type="submit"
+        id="submit-btn"
+        @submit.prevent="log"
+        @click.prevent="log"
+        >Login</b-button
+      >
       <router-link class="cadastre-se" to="cadastro"
         >Ou, Cadastre-se agora</router-link
       >
@@ -33,12 +41,36 @@ import { Vue, Component } from "vue-property-decorator";
 
 import FooterComponent from "@/components/Footer.vue";
 
+import axios from "axios";
+import eventBus from "../../store/eventbus";
+
 @Component({
   components: { "footer-component": FooterComponent },
 })
 export default class Login1View extends Vue {
+  serverURL = this.$store.getters["serverURL"];
+
+  userInfo = {
+    cpf: "",
+    pass: "",
+  };
+
   navigateTo(route: string) {
     this.$router.replace(route);
+  }
+
+  async log() {
+    // codigo quando tiver url pro servidor
+    try {
+      const resp = await axios.post(
+        this.$store.getters["serverURL"] + "/login",
+        this.userInfo
+      );
+      this.$store.dispatch("logIn", resp.data);
+      if (resp.status >= 200 && resp.status < 300) this.navigateTo("/vendas");
+    } catch (error) {
+      this.userInfo.cpf = this.userInfo.pass = "";
+    }
   }
 }
 </script>

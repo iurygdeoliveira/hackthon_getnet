@@ -13,14 +13,15 @@
           style="display: flex; flex-direction: column;"
         >
           <label for="nome">Nome</label>
-          <b-input class="input" id="nome"> </b-input>
+          <b-input v-model="registerInfo.name" class="input" id="nome">
+          </b-input>
         </div>
         <div
           class="input-container"
           style="display: flex; flex-direction: column;"
         >
           <label for="cpf">CPF</label>
-          <b-input class="input" id="cpf"> </b-input>
+          <b-input v-model="registerInfo.cpf" class="input" id="cpf"> </b-input>
         </div>
         <div
           class="input-container"
@@ -34,7 +35,8 @@
           style="display: flex; flex-direction: column;"
         >
           <label for="cel">Celular</label>
-          <b-input class="input" id="cel"> </b-input>
+          <b-input v-model="registerInfo.phone" class="input" id="cel">
+          </b-input>
         </div>
         <div
           class="input-container"
@@ -48,7 +50,13 @@
           style="display: flex; flex-direction: column;"
         >
           <label for="password1">Digite uma senha</label>
-          <b-input class="input" id="password1" type="password"> </b-input>
+          <b-input
+            v-model="registerInfo.pass"
+            class="input"
+            id="password1"
+            type="password"
+          >
+          </b-input>
         </div>
         <div
           class="input-container"
@@ -71,10 +79,10 @@
           <label for="estado">Estado</label>
           <b-input class="input" id="estado"> </b-input>
         </div>
-        <b-button class="comecar-btn">
-          <router-link to="cadastro/etapa2">
-            Próxima etapa
-          </router-link>
+        <b-button @click.prevent="register" class="comecar-btn">
+          <!-- <router-link to="cadastro/etapa2"> -->
+          Próxima etapa
+          <!-- </router-link> -->
         </b-button>
       </b-form>
     </div>
@@ -100,10 +108,6 @@
   background-color: #a61731;
 }
 
-/* .input {
-  width: 40%;
-} */
-
 .input-container {
   width: 45%;
 }
@@ -127,3 +131,32 @@
   font-size: 15px;
 }
 </style>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+import axios from "axios";
+
+@Component({})
+export default class Cadastro1View extends Vue {
+  registerInfo = {
+    name: "",
+    pass: "",
+    cpf: "",
+    phone: "",
+  };
+
+  async register() {
+    try {
+      const resp = await axios.post(
+        this.$store.getters["serverURL"] + "/register",
+        this.registerInfo
+      );
+      this.$router.push("/cadastro/etapa2");
+    } catch (error) {
+      this.registerInfo.name = this.registerInfo.pass = this.registerInfo.cpf = this.registerInfo.phone =
+        "";
+    }
+  }
+}
+</script>

@@ -1,55 +1,6 @@
 <template>
   <div id="carrinho-view">
-    <div id="carrinho-view-content">
-      <div id="title">
-        Carrinho:
-      </div>
-      <!-- Listagem definida esclusivamente pelo Estado global  -->
-      <div id="itens-list">
-        <div class="item" v-for="item in cartItens" :key="item.title">
-          <div id="item-img">
-            <img src="https://picsum.photos/30?grayscale" alt="" />
-          </div>
-          <b-icon icon="caret-right-fill" style="color: #A61731;"></b-icon>
-          <div id="item-text">
-            <div id="item-title">
-              <strong>{{ item.title }}</strong>
-            </div>
-            <div id="item-description">{{ item.desc }}</div>
-          </div>
-          <div id="price">R$ {{ item.price }}</div>
-        </div>
-        <label style="margin: 0; margin-top: 30px; opacity: 0.6;">Total</label>
-        <div id="total">R$ {{ getTotal() }}</div>
-      </div>
-      <div id="metodos-pag">
-        <div id="pag-title">
-          Selecione o tipo de Pagamento:
-        </div>
-        <div id="mets-list">
-          <div class="met-item">
-            <b-icon icon="credit-card-fill" />
-            <div class="item-title">Débito / Crédito</div>
-            <b-icon icon="arrow-right" />
-          </div>
-          <div class="met-item">
-            <b-icon icon="credit-card-fill" />
-            <div class="item-title">Transferências</div>
-            <b-icon icon="arrow-right" />
-          </div>
-          <div class="met-item">
-            <b-icon icon="credit-card-fill" />
-            <div class="item-title">QR Code / Link</div>
-            <b-icon icon="arrow-right" />
-          </div>
-          <div class="met-item">
-            <b-icon icon="credit-card-fill" />
-            <div class="item-title">Dinheiro</div>
-            <b-icon icon="arrow-right" />
-          </div>
-        </div>
-      </div>
-    </div>
+    <router-view></router-view>
     <footer-component />
   </div>
 </template>
@@ -129,22 +80,10 @@
 import { Component, Vue } from "vue-property-decorator";
 
 import FooterComponent from "@/components/Footer.vue";
+import eventBus from "../../store/eventbus";
 
 @Component({
   components: { "footer-component": FooterComponent },
 })
-export default class CarrinhoView extends Vue {
-  cartItens = [
-    { price: "60,00", title: "Bolo", desc: "Bolo sabor chocolate - 1kg" },
-    { price: "40,00", title: "Docinhos", desc: "1 cento de docinhos" },
-  ];
-
-  getTotal() {
-    return this.cartItens
-      .map((el) => Number(el.price.replace(",", ".")))
-      .reduce((acc, el) => acc + el)
-      .toFixed(2)
-      .replace(".", ",");
-  }
-}
+export default class CarrinhoView extends Vue {}
 </script>

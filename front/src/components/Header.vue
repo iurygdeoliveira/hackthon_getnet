@@ -2,12 +2,14 @@
   <div id="header-component">
     <div class="header-line" id="brand">
       <div style="flex-frow: 1; margin: auto; display: flex;">
-        <img src="https://picsum.photos/40?grayscale" alt="" />
+        <router-link to="/">
+          <img src="https://picsum.photos/40?grayscale" alt=""
+        /></router-link>
         <div class="line-el" id="nome-marca">+GRANA</div>
       </div>
       <div class="line-el phone-only" id="lgn-btn-p">
-        <b-button id="login-btn">
-          <router-link to="entrar">
+        <b-button id="login-btn" v-if="!userInfo.isLogged">
+          <router-link to="/entrar">
             LOGIN
           </router-link>
         </b-button>
@@ -18,7 +20,7 @@
       <div class="line-el">Contato</div>
       <div class="line-el">Sobre</div>
       <div class="line-el phone-hidden" id="lgn-btn-p">
-        <b-button id="login-btn">
+        <b-button id="login-btn" v-if="!userInfo.isLogged">
           <router-link to="entrar">
             LOGIN
           </router-link>
@@ -26,14 +28,15 @@
       </div>
     </div>
     <div class="back">
-      <b-icon class="back-icon" icon="arrow-left" />
+      <b-icon class="back-icon" icon="arrow-left" @click.prevent="routeBack" />
     </div>
-    <button v-b-toggle.sidebar-1>adada</button>
+    <b-button variant="outline" v-b-toggle.sidebar-1 v-if="userInfo.isLogged">
+      <b-icon icon="grid-fill" />
+    </b-button>
     <b-sidebar
       id="sidebar-1"
       backdrop
       width="60%"
-      visible
       right
       sidebar-class="rounded-left rounded-lg"
     >
@@ -41,9 +44,8 @@
         <b-icon class="back-icon" style="color: #F20505;" icon="arrow-left" />
       </template>
       <div id="user-info">
-        <img id="user-img" :src="userInfo.imgURL" alt="" />
+        <img id="user-img" src="../../public/SPOILER_user.svg" alt="" />
         <div id="user-name">{{ userInfo.nome }}</div>
-        <div id="user-email">{{ userInfo.email }}</div>
       </div>
 
       <div id="func-list">
@@ -90,7 +92,7 @@
             <img src="../../public/SPOILER_sair.svg" alt="" />
           </div>
           <div class="item-text">
-            <a href="">
+            <a href="" @click.prevent="logout">
               Sair
             </a>
           </div>
@@ -192,20 +194,29 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
 import { BButton, BSidebar } from "bootstrap-vue";
+
+import eventBus from "../store/eventbus";
 
 @Component({
   components: {},
 })
 export default class HeaderComponent extends Vue {
-  userInfo = {
-    imgURL: "https://picsum.photos/60?grayscale",
-    nome: "Maria",
-    email: "email@provedor.com",
-  };
+  logout() {
+    this.$store.dispatch("logOut");
+    this.$router.replace("/");
+  }
+
+  created() {
+    this.userInfo = this.$store.getters["user"];
+    if (!this.$store.getters["firstLoad"] && !this.userInfo["isLogged"])
+      this.$router.replace("/entrar");
+  }
+
+  userInfo: any;
 
   gastosItens = [
     {
@@ -260,6 +271,10 @@ export default class HeaderComponent extends Vue {
       show: true,
     },
   ];
+
+  routeBack() {
+    this.$router.back();
+  }
 }
 </script>
 

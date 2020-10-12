@@ -15,10 +15,7 @@ import { BForm, BFormInput, BButton } from "bootstrap-vue";
 @Component({
   components: { "footer-component": FooterComponent },
 })
-export default class CadastroView extends Vue {
-  // created() {
-  // }
-}
+export default class CadastroView extends Vue {}
 </script>
 
 <style scoped>

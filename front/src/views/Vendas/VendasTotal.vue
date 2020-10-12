@@ -1,45 +1,43 @@
 <template>
-  <div id="vendas-view">
-    <div id="vendas-view-content">
-      <div id="main-org">
-        <div style="text-align: center;">
-          <label style="margin: 0; ">Vendas</label>
-          <div id="vendas-total">
-            R$ 1180,50
-          </div>
+  <div id="vendas-view-content">
+    <div id="main-org">
+      <div style="text-align: center;">
+        <label style="margin: 0; ">Vendas</label>
+        <div id="vendas-total">
+          R$ 1180,50
         </div>
-        <b-button id="go-venda">Realizar Vendas</b-button>
       </div>
-      <div id="list-vendas">
-        <a href="" id="xpnd-link">
-          <hr id="xpnd-icon" />
-        </a>
-        <div id="list-vendas-title">
-          Vendas Recentes:
-        </div>
-        <div id="list-container">
-          <div class="item" v-for="item in vendasItens" :key="item.nome">
-            <div id="item-img">
-              <img src="https://picsum.photos/40?grayscale" alt="" />
-            </div>
-            <div id="item-text">
-              <div id="item-title">
-                <strong>{{ item.nome }}</strong>
-              </div>
-              <div id="item-description">{{ item.desc }}</div>
-            </div>
-            <div id="price">R$ {{ item.valor }}</div>
+      <b-button id="go-venda" @click.prevent="goTo('/vendas/adicionar')"
+        >Realizar Vendas</b-button
+      >
+    </div>
+    <div id="list-vendas">
+      <a href="" id="xpnd-link">
+        <hr id="xpnd-icon" />
+      </a>
+      <div id="list-vendas-title">
+        Vendas Recentes:
+      </div>
+      <div id="list-container">
+        <div class="item" v-for="item in vendasItens" :key="item.nome">
+          <div id="item-img">
+            <img src="https://picsum.photos/40?grayscale" alt="" />
           </div>
+          <div id="item-text">
+            <div id="item-title">
+              <strong>{{ item.nome }}</strong>
+            </div>
+            <div id="item-description">{{ item.desc }}</div>
+          </div>
+          <div id="price">R$ {{ item.valor }}</div>
         </div>
       </div>
     </div>
-    <footer-component />
   </div>
 </template>
 
 <style scoped>
-#vendas-view {
-  width: 100%;
+#vendas-total-view {
   font-family: "IBM Plex Sans", sans-serif;
 }
 
@@ -109,12 +107,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-import FooterCommponent from "@/components/Footer.vue";
-
-@Component({
-  components: { "footer-component": FooterCommponent },
-})
-export default class VendasView extends Vue {
+@Component({})
+export default class VendasTotalView extends Vue {
   vendasItens = [
     {
       nome: "Ana Carolina",
@@ -135,7 +129,9 @@ export default class VendasView extends Vue {
       show: true,
     },
   ];
+
+  goTo(route: string) {
+    this.$router.push(route);
+  }
 }
 </script>
-
-<style scoped></style>
