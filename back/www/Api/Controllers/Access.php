@@ -92,7 +92,7 @@ class Access
         Response $response
     ): Response {
 
-        // CHEKANDO SE EXISTE PROBLEMA DE CONEXÃO COM O BANCO
+        // CHECKANDO SE EXISTE PROBLEMA DE CONEXÃO COM O BANCO
         if ($this->checkBD()) {
             $this->errorBack("problem connect BD", $this->error);
             $response->getBody()->write(json_encode($this->error));
@@ -109,7 +109,6 @@ class Access
 
         //VERIFICANDO VALIDADE DO CPF
         $body->cpf = $this->ValidateCPF($body->cpf);
-
 
         if (!$body->cpf) {
 
@@ -136,8 +135,7 @@ class Access
         }
 
         // VERIFICANDO SE SENHA ESTÁ CORRETA
-        // if (password_verify($body->pass, $loginData->data()->pass)) {
-        if ($body->pass === $loginData->data()->pass) {
+        if (password_verify($body->pass, $loginData->data()->pass)) {
 
             $response->getBody()->write($loginData->data()->name);
             return $response
@@ -151,5 +149,75 @@ class Access
             ->withHeader('Content-Type', TYPE_RESPONSE)
             ->withStatus(401);
         //      }
+    }
+
+    public function register(
+        Request $request,
+        Response $response
+    ): Response {
+
+        // CHEKANDO SE EXISTE PROBLEMA DE CONEXÃO COM O BANCO
+        if ($this->checkBD()) {
+            $this->errorBack("problem connect BD", $this->error);
+            $response->getBody()->write(json_encode($this->error));
+            return $response
+                ->withHeader('Content-Type', TYPE_RESPONSE)
+                ->withStatus(503);
+        }
+
+        $body = json_decode($request->getBody()->getContents());
+
+        // LIMPANDO CAMPOS
+        $body->name = filter_var($body->name, FILTER_SANITIZE_STRIPPED);
+        $body->cpf = filter_var($body->cpf, FILTER_SANITIZE_STRIPPED);
+        $body->pass = filter_var($body->pass, FILTER_SANITIZE_STRIPPED);
+        $body->phone = filter_var($body->phone, FILTER_SANITIZE_STRIPPED);
+
+        //VERIFICANDO VALIDADE DO CPF
+        $body->cpf = $this->ValidateCPF($body->cpf);
+
+        if (!$body->cpf) {
+
+            $response->getBody()->write(
+                "invalid cpf"
+            );
+            return $response
+                ->withHeader('Content-Type', TYPE_RESPONSE)
+                ->withStatus(401);
+        }
+
+        // VERIFICANDO SE LOGIN EXISTE
+        $login = new Login();
+        $loginData = $login->find("cpf=:cpf", "cpf=$body->cpf")->fetch();
+
+        if ($loginData) {
+
+            $response->getBody()->write(
+                "user already registered"
+            );
+            return $response
+                ->withHeader('Content-Type', TYPE_RESPONSE)
+                ->withStatus(401);
+        }
+
+        // CADASTRANDO NOVO USUARIO
+        $login->name = $body->name;
+        $login->pass = password_hash($body->pass, PASSWORD_DEFAULT);
+        $login->cpf = $body->cpf;
+        $login->phone = preg_replace('/[^0-9]/is', '', $body->phone);
+        $login->save();
+
+        if ($login->fail()) {
+
+            $response->getBody()->write($login->fail());
+            return $response
+                ->withHeader('Content-Type', TYPE_RESPONSE)
+                ->withStatus(401);
+        }
+
+        $response->getBody()->write("registered user");
+        return $response
+            ->withHeader('Content-Type', TYPE_RESPONSE)
+            ->withStatus(200);
     }
 }
