@@ -168,6 +168,7 @@ class Payment
 
             // RETORNANDO TOKEN RECEM CRIADO
             $response->getBody()->write($token->access_token);
+
             return $response
                 ->withHeader('Content-Type', TYPE_RESPONSE)
                 ->withStatus(200);
@@ -193,9 +194,7 @@ class Payment
             $authData->data->type = $token->token_type;
             $authData->data->expire = $token->expires_in;
             $authData->save();
-            var_dump($authData);
 
-            // $parsedBody = $request->getParsedBody();
             $response->getBody()->write($token->access_token);
 
             return $response
