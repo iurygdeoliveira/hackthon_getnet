@@ -14,6 +14,7 @@ import PagamentoQR from "@/views/Pagamento/PagamentoQR.vue";
 import PagamentoLink from "@/views/Pagamento/PagamentoLink.vue";
 import PagamentoCash from "@/views/Pagamento/PagamentoCash.vue";
 import PagamentoOK from "@/views/Pagamento/PagamentoOK.vue";
+import PagamentoCartao from "@/views/Pagamento/PagamentoCartao.vue";
 
 import VendasTotal from "@/views/Vendas/VendasTotal.vue";
 import VendasAdd from "@/views/Vendas/VendasAdd.vue";
@@ -85,6 +86,10 @@ const routes: Array<RouteConfig> = [
       {
         path: "sucesso",
         component: PagamentoOK
+      },
+      {
+        path: "cartao",
+        component: PagamentoCartao
       }
     ]
   },

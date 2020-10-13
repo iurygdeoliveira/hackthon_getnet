@@ -33,7 +33,7 @@
         Selecione o tipo de Pagamento:
       </div>
       <div id="mets-list">
-        <div class="met-item">
+        <div class="met-item" @click.prevent="goTo('/pagamento/cartao')">
           <b-icon icon="credit-card-fill" />
           <div class="item-title">Débito / Crédito</div>
           <b-icon icon="arrow-right" />
