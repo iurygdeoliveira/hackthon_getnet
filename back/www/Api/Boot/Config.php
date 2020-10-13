@@ -29,7 +29,7 @@ define("ROUTE_AUTHENTICATION", "/auth/oauth/v2/token");
  * DEBUG
  * Change to false in the production
  */
-define("IS_DEV_MODE", false);
+define("IS_DEV_MODE", true);
 
 /**
  * DATABASE
