@@ -34,7 +34,7 @@ $app->add(function ($request, $handler) {
 // ROUTES ###########################################
 
 // Create Authentication
-$app->post('/authentication', Payment::class . ':Authentication');
+$app->get('/authentication', Payment::class . ':Authentication');
 
 // Create and Check Login
 $app->post('/login', Access::class . ':login');
