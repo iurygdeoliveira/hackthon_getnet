@@ -201,5 +201,11 @@ class Payment
                 ->withHeader('Content-Type', TYPE_RESPONSE)
                 ->withStatus(200);
         }
+
+        $response->getBody()->write("");
+
+        return $response
+            ->withHeader('Content-Type', TYPE_RESPONSE)
+            ->withStatus(200);
     }
 }
