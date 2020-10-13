@@ -145,6 +145,7 @@ class Payment
         // VERIFICANDO SE TOKEN EXPIROU
         $auth = new Auth();
         $authData = $auth->findById(1);
+        var_dump($authData);
 
         // EXISTE ALGUM TOKEN SALVO ?
         if (!$authData) {
